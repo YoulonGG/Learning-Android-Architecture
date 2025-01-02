@@ -1,5 +1,8 @@
 package com.example.learningandroidarchitecture.crypto.core.data.network
+
+
 import com.example.learningandroidarchitecture.crypto.core.util.NetworkError
+import com.example.learningandroidarchitecture.crypto.core.util.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
