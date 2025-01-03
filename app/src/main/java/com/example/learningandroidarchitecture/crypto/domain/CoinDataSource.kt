@@ -4,5 +4,5 @@ import com.example.learningandroidarchitecture.crypto.core.util.NetworkError
 import com.example.learningandroidarchitecture.crypto.core.util.Result
 
 interface CoinDataSource {
-    suspend fun get(): Result<List<Coin>, NetworkError>
+    suspend fun getCoin(): Result<List<Coin>, NetworkError>
 }
