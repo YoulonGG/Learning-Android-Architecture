@@ -16,7 +16,7 @@ import io.ktor.client.request.get
 class RemoteCoinDataSource(
     private val httpClient: HttpClient
 ): CoinDataSource {
-    override suspend fun get(): Result<List<Coin>, NetworkError> {
+    override suspend fun getCoin(): Result<List<Coin>, NetworkError> {
         return safeCall<CoinResponseDto> {
             httpClient.get(
                 urlString = constructUrl("/assets")

@@ -33,6 +33,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://api.coincap.io/v2/\"")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -55,16 +56,20 @@ android {
 }
 
 dependencies {
-
+    // AndroidX Core and Lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.activity.compose)
+
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.firebase.crashlytics.buildtools)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,12 +78,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // Ktor
     implementation(libs.ktor.client.core.v233)
     implementation(libs.ktor.client.cio.v233)
     implementation(libs.ktor.client.content.negotiation.v233)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.client.logging.v233) 
-    implementation(libs.ktor.client.content.negotiation.v233)
-    implementation(libs.ktor.serialization.kotlinx.json.v233)
+    implementation(libs.ktor.client.logging.v233)
 
+    // Koin - Ensure using koin-android and koin-androidx-compose
+    implementation(libs.koin.core)
+    implementation(libs.koin.android) // Correct Koin version for Android
+    implementation(libs.koin.androidx.compose) // For Jetpack Compose integration
 }

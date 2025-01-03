@@ -2,6 +2,7 @@ package com.example.learningandroidarchitecture.crypto.data.networking.dto
 
 import kotlinx.serialization.Serializable
 
+
 @Serializable
 data class CoinDto (
     val id: String,

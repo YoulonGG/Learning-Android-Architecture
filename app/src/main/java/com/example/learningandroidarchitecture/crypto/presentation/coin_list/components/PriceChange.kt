@@ -27,23 +27,33 @@ fun PriceChange(
     change: DisplayableNumber,
     modifier: Modifier = Modifier
 ) {
-    val contentColor =
-        if (change.value < 0.0) MaterialTheme.colorScheme.onErrorContainer else Color.Green
-    val backGroundColor =
-        if (change.value < 0.0) MaterialTheme.colorScheme.errorContainer else greenBackground
+    val contentColor = if(change.value < 0.0) {
+        MaterialTheme.colorScheme.onErrorContainer
+    } else {
+        Color.Green
+    }
+    val backgroundColor = if(change.value < 0.0) {
+        MaterialTheme.colorScheme.errorContainer
+    } else {
+        greenBackground
+    }
 
     Row(
-        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clip(RoundedCornerShape(100f))
-            .background(backGroundColor)
-            .padding(4.dp)
+            .background(backgroundColor)
+            .padding(horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = if (change.value < 0.0) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
+            imageVector = if(change.value < 0.0) {
+                Icons.Default.KeyboardArrowDown
+            } else {
+                Icons.Default.KeyboardArrowUp
+            },
             contentDescription = null,
-            tint = contentColor,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(20.dp),
+            tint = contentColor
         )
         Text(
             text = "${change.formatted} %",

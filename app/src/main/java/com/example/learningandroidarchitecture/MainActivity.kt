@@ -4,18 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.learningandroidarchitecture.crypto.presentation.CoinListState
+import org.koin.androidx.compose.koinViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.learningandroidarchitecture.crypto.presentation.coin_list.CoinListScreen
-import com.example.learningandroidarchitecture.crypto.presentation.coin_list.components.CoinListItem
+import com.example.learningandroidarchitecture.crypto.presentation.coin_list.CoinListViewModel
 import com.example.learningandroidarchitecture.ui.theme.LearningAndroidArchitectureTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +21,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LearningAndroidArchitectureTheme {
-                CoinListScreen(uiState = CoinListState())
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val viewModel = koinViewModel<CoinListViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+                    CoinListScreen(
+                        state = state,
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ package com.example.learningandroidarchitecture.crypto.presentation.coin_list
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -16,30 +17,34 @@ import com.example.learningandroidarchitecture.crypto.presentation.coin_list.com
 
 @Composable
 fun CoinListScreen(
-    uiState: CoinListState
+    state: CoinListState,
+    modifier: Modifier = Modifier
 ) {
-    if (uiState.isLoading) {
+    if(state.isLoading) {
         Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize(),
-            content = {
-                CircularProgressIndicator()
-            }
-        )
+            modifier = modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
     } else {
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(uiState.coins) { coins ->
+            items(state.coins) { coinUi ->
                 CoinListItem(
-                    coinUi = coins,
-                    onClick = {},
-                    modifier = Modifier.fillParentMaxWidth()
+                    coinUi = coinUi,
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 HorizontalDivider()
             }
         }
     }
 }
+
+
 

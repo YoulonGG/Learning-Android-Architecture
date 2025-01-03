@@ -6,7 +6,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,40 +26,42 @@ import com.example.learningandroidarchitecture.crypto.presentation.models.CoinUi
 
 @Composable
 fun CoinListItem(
-    modifier: Modifier = Modifier,
     coinUi: CoinUiModel,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-
-    val textColor = if (isSystemInDarkTheme()) Color.White else Color.Black
-
+    val contentColor = if(isSystemInDarkTheme()) {
+        Color.White
+    } else {
+        Color.Black
+    }
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = modifier
             .clickable(onClick = onClick)
-            .padding(20.dp)
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = coinUi.iconRes),
             contentDescription = coinUi.name,
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(85.dp)
         )
         Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = modifier.weight(1f)
+            modifier = Modifier.weight(1f)
         ) {
             Text(
                 text = coinUi.symbol,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = textColor
-                )
+                color = contentColor
+            )
             Text(
                 text = coinUi.name,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
-                color = textColor
+                color = contentColor
             )
         }
         Column(
@@ -66,7 +71,11 @@ fun CoinListItem(
                 text = "$ ${coinUi.priceUsd.formatted}",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = textColor
+                color = contentColor
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            PriceChange(
+                change = coinUi.changePercent24h
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.example.learningandroidarchitecture.crypto.presentation.coin_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learningandroidarchitecture.crypto.core.util.onError
@@ -45,6 +46,7 @@ class CoinListViewModel(
                 .getCoin()
                 .onError { error ->
                     _state.update { it.copy(isLoading = false) }
+                    Log.e("", "Error Hz Broooo")
                 }
                 .onSuccess { coins ->
                     _state.update {
