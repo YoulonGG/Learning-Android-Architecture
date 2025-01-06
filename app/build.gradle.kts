@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -56,37 +58,17 @@ android {
 }
 
 dependencies {
-    // AndroidX Core and Lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.activity.compose)
-
-    // Compose
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-
-    // Testing
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.bundles.compose.debug)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.ktor)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
-    // Ktor
-    implementation(libs.ktor.client.core.v233)
-    implementation(libs.ktor.client.cio.v233)
-    implementation(libs.ktor.client.content.negotiation.v233)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.client.logging.v233)
-
-    // Koin - Ensure using koin-android and koin-androidx-compose
-    implementation(libs.koin.core)
-    implementation(libs.koin.android) // Correct Koin version for Android
-    implementation(libs.koin.androidx.compose) // For Jetpack Compose integration
 }

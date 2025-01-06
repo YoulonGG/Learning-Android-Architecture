@@ -2,6 +2,7 @@ package com.example.learningandroidarchitecture.crypto.presentation.models
 
 import androidx.annotation.DrawableRes
 import com.example.learningandroidarchitecture.crypto.domain.Coin
+import com.example.learningandroidarchitecture.crypto.presentation.coin_list.components.DataPoint
 import com.example.learningandroidarchitecture.crypto.util.getDrawableIdForCoin
 import java.text.NumberFormat
 import java.util.Locale
@@ -13,8 +14,9 @@ data class CoinUiModel(
     val symbol: String,
     val marketCapUsd: DisplayableNumber,
     val priceUsd: DisplayableNumber,
-    val changePercent24h: DisplayableNumber,
-    @DrawableRes val iconRes: Int
+    val changePercent24Hr: DisplayableNumber,
+    @DrawableRes val iconRes: Int,
+    val coinPriceHistory: List<DataPoint> = emptyList()
 )
 
 data class DisplayableNumber(
@@ -22,7 +24,7 @@ data class DisplayableNumber(
     val formatted: String
 )
 
-fun Coin.toCoinUi(): CoinUiModel{
+fun Coin.toCoinUi(): CoinUiModel {
     return CoinUiModel(
         id = id,
         name = name,
@@ -30,13 +32,13 @@ fun Coin.toCoinUi(): CoinUiModel{
         rank = rank,
         priceUsd = priceUsd.toDisplayableNumber(),
         marketCapUsd = marketCapUsd.toDisplayableNumber(),
-        changePercent24h = changePercent24h.toDisplayableNumber(),
+        changePercent24Hr = changePercent24h.toDisplayableNumber(),
         iconRes = getDrawableIdForCoin(symbol)
     )
 }
 
-fun Double.toDisplayableNumber(): DisplayableNumber{
-    val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
+fun Double.toDisplayableNumber(): DisplayableNumber {
+    val formatter = android.icu.text.NumberFormat.getNumberInstance(Locale.getDefault()).apply {
         minimumFractionDigits = 2
         maximumFractionDigits = 2
     }

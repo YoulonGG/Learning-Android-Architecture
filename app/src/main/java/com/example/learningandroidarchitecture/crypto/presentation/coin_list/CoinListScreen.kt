@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.learningandroidarchitecture.crypto.presentation.CoinListAction
 import com.example.learningandroidarchitecture.crypto.presentation.CoinListState
 import com.example.learningandroidarchitecture.crypto.presentation.coin_list.components.CoinListItem
 
 @Composable
 fun CoinListScreen(
     state: CoinListState,
+    onAction: (CoinListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if(state.isLoading) {
@@ -37,7 +39,9 @@ fun CoinListScreen(
             items(state.coins) { coinUi ->
                 CoinListItem(
                     coinUi = coinUi,
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        onAction(CoinListAction.FetchCoinList(coinUi))
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
                 HorizontalDivider()
@@ -45,6 +49,23 @@ fun CoinListScreen(
         }
     }
 }
+
+//@PreviewLightDark
+//@Composable
+//private fun CoinListScreenPreview() {
+//    CryptoTrackerTheme {
+//        CoinListScreen(
+//            state = CoinListState(
+//                coins = (1..100).map {
+//                    previewCoin.copy(id = it.toString())
+//                }
+//            ),
+//            modifier = Modifier
+//                .background(MaterialTheme.colorScheme.background),
+//            onAction = {}
+//        )
+//    }
+//}
 
 
 
